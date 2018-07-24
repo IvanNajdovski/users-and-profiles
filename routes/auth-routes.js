@@ -20,6 +20,13 @@ router
         res.redirect("/")
 });
 
+//auth with facebook
+router.get("/facebook", passport.authenticate("facebook"));
+//callback rout for facebook to redirect
+router.get("/facebook/redirect",passport.authenticate("facebook"),(req,res,next) =>{
+    // const user = req.user.username;
+    res.redirect(`/profile/`)
+})
 
 //auth with google
 router.get("/google", passport.authenticate("google",{

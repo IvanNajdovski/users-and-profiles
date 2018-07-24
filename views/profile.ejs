@@ -50,8 +50,11 @@
     </ul>
 </nav>
 <header>
+    <% if (user.username) { %>
     <h1>Welcome to your profile, <%= user.username%> </h1>
-
+    <% } else { %>
+    <h1>Welcome to your Facebook profile</h1>
+    <% } %>
 </header>
 <main>
     <p><%= user.username%> You have successfully become NINJA   </p>
