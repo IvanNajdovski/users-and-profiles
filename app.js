@@ -8,6 +8,7 @@ const passport = require("passport");
 const authRoutes = require("./routes/auth-routes");
 const profileRoutes = require("./routes/profile");
 
+const PORT = process.env.port || 3000;
 //
 // const mongoose = require("mongoose");
 
@@ -27,7 +28,7 @@ app.set("view engine", "ejs");
 
 app.use(cookie({
     maxAge: 24 * 60 * 60 * 1000,
-    keys:[keys.session.cookieKey]
+    keys:[keys.session.cookieKey] || process.env.cookie
 }));
 
 //initialize passport
@@ -44,7 +45,20 @@ app.get("/", (req,res) =>{
     res.render("home" , { user: req.user});
 })
 
+app.use((req,res,next) =>{
+    const err = new Error("Not found");
+    err.status = 404;
+    return next(err);
+});
+app.use((err,req,res,next) =>{
+    res.status(err.status || 500);
+    return res.render("error",{
+        message:err.message,
+        error: app.get("env") === "development" ? err: {}
+    });
+});
 
-app.listen(3000, () =>{
-    console.log("Portal open on port 3000..");
+
+app.listen(PORT, () =>{
+    console.log(`Portal open on port ${PORT}..`);
 })

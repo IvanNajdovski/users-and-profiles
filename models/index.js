@@ -5,7 +5,7 @@ mongoose.set("debug", true);
 mongoose.Promise = Promise;
 
 mongoose
-    .connect(keys.mongodb.dbURI).then(() =>{
+    .connect(keys.mongodb.dbURI || process.env.dbURI).then(() =>{
         console.log("Connected to MongoDB");
 }).catch(err =>{
     console.log(err);
