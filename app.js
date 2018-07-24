@@ -8,7 +8,7 @@ const passport = require("passport");
 const authRoutes = require("./routes/auth-routes");
 const profileRoutes = require("./routes/profile");
 
-const PORT = process.env.port || 3000;
+const PORT = process.env.PORT || 3000;
 //
 // const mongoose = require("mongoose");
 
